@@ -1,2 +1,2 @@
-# GenericJavaPlugin
-Premade Utility Classes for creating Java Plugins for minecraft
+# DeathMessages
+Customisable Death messages for when player die
