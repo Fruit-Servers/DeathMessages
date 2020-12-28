@@ -1,0 +1,123 @@
+# List of entities players can set custom messages for
+# Each entity requires a name, lore and a material - this is for how it appears in the GUI
+# The entity type is appended to the end of the lore list - this cannot be modified
+# Example list
+# ENTITY:
+#   CREEPER:
+#     name: "&6Creeper"
+#     lore:
+#       - "&8For when you get 'sploded to bits"
+#       - "&8Click to customise your message!"
+#     itemType: "GUNPOWDER"
+#   SKELETON:
+#     name: "&6Skeleton"
+#     lore:
+#       - "&8For when you get shot by a skeleton"
+#       - "&8Click to customise your message!"
+#     itemType: "BONE"
+ENTITY:
+  CREEPER:
+    name: "&6Creeper"
+    lore:
+      - "&8Click to customise your message!"
+    itemType: "GUNPOWDER"
+  SKELETON:
+    name: "&6Skeleton"
+    lore:
+      - "&8Click to customise your message!"
+    itemType: "BONE"
+
+
+# List of other death types players can set custom messages for
+# Each death type requires a name, lore and a material - this is for how it appears in the GUI
+# The entity type is appended to the end of the lore list - this cannot be modified
+# For the list of valid death causes, scroll to the bottom of this file
+# Example list
+# ENTITY:
+#   VOID:
+#     name: "&6Void"
+#     lore:
+#       - "&8For when you fall into the void"
+#       - "&8Click to customise your message!"
+#     itemType: "BEDROCK"
+#   BLOCK_EXPLOSION:
+#     name: "&6TNT"
+#     lore:
+#       - "&8For when you get blown up by TNT"
+#       - "&8Click to customise your message!"
+#     itemType: "TNT"
+OTHER:
+  VOID:
+    name: "&6Void"
+    lore:
+      - "&8Click to customise your message!"
+    itemType: "BEDROCK"
+  BLOCK_EXPLOSION:
+    name: "&6TNT"
+    lore:
+      - "&8Click to customise your message!"
+    itemType: "TNT"
+
+
+# A List of all possible Entities for a death message (As of 1.16.4)
+# for an updated list, see https://minecraft.gamepedia.com/Mob#List_of_mobs
+# PLAYER
+# CREEPER
+# SKELETON
+# SPIDER
+# ZOMBIE
+# SLIME
+# GHAST
+# ZOMBIFIED_PIGLIN
+# ENDERMAN
+# CAVE_SPIDER
+# SILVERFISH
+# BLAZE
+# MAGMA_CUBE
+# ENDER_DRAGON
+# WITHER
+# WITCH
+# ENDERMITE
+# GUARDIAN
+# SHULKER
+# WOLF
+# IRON_GOLEM
+# POLAR_BEAR
+# LLAMA
+# PHANTOM
+# PUFFERFISH
+# DROWNED
+# PILLAGER
+# RAVAGER
+# TRADER_LLAMA
+# BEE
+# HOGLIN
+# PIGLIN
+# ZOGLIN
+# PIGLIN_BRUTE
+# UNKNOWN
+
+# A List of all possible death causes for a death message (As of 1.16.4)
+# for an updated list, see https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
+# BLOCK_EXPLOSION
+# CONTACT
+# CUSTOM (The equivalent of 'UNKNOWN')
+# DRAGON_BREATH
+# DROWNING
+# FALL
+# FALLING_BLOCK
+# FIRE
+# FIRE_TICK
+# FLY_INTO_WALL
+# HOT_FLOOR
+# LAVA
+# LIGHTNING
+# MAGIC
+# POISON
+# PROJECTILE
+# STARVATION
+# SUFFOCATION
+# SUICIDE
+# THORNS
+# VOID
+# WITHER

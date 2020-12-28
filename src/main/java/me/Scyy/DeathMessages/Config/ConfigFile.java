@@ -1,7 +1,7 @@
-package me.Scyy.Util.GenericJavaPlugin.Config;
+package me.Scyy.DeathMessages.Config;
 
 import com.google.common.base.Charsets;
-import me.Scyy.Util.GenericJavaPlugin.Plugin;
+import me.Scyy.DeathMessages.Plugin;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * Abstract representation for classes responsible for handing config files. A reference to the handler of this ConfigFile
+ * is intentionally not provided to allow for multiple instances of managers. Possible feature - interface for managers
+ */
 public abstract class ConfigFile {
 
     /**
@@ -32,13 +36,15 @@ public abstract class ConfigFile {
      */
     protected final String configFilePath;
 
+
+
     /**
-     * Attaches the configuration getter/setter to the File specified at {@code configFilePath} or if the file is not found
-     * Loads one from the plugin files
+     * Loads a virtual representation of the configuration file at the given path
      * @param plugin the Plugin class
      * @param configFilePath path to the file from this plugins Data Folder
+     * @param loadFromResourceFolder if the configuration to load comes from the resources folder of the plugin
      */
-    public ConfigFile(Plugin plugin, String configFilePath) {
+    public ConfigFile(Plugin plugin, String configFilePath, boolean loadFromResourceFolder) {
 
         // Save the plugin reference
         this.plugin = plugin;
@@ -52,7 +58,17 @@ public abstract class ConfigFile {
         // Check if the file exists
         if (!configFile.exists()) {
             configFile.getParentFile().mkdirs();
-            plugin.saveResource(configFilePath, false);
+            if (loadFromResourceFolder) {
+                plugin.saveResource(configFilePath, false);
+            } else {
+                try {
+                    configFile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
         }
 
         // Create the yml reference

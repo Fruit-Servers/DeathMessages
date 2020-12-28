@@ -1,6 +1,6 @@
-package me.Scyy.Util.GenericJavaPlugin.Config;
+package me.Scyy.DeathMessages.Config;
 
-import me.Scyy.Util.GenericJavaPlugin.Plugin;
+import me.Scyy.DeathMessages.Plugin;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -27,7 +27,7 @@ public class PlayerMessenger extends ConfigFile {
      * @param plugin reference to the plugin
      */
     public PlayerMessenger(Plugin plugin) {
-        super(plugin, "messages.yml");
+        super(plugin, "messages.yml", true);
 
         // Get the prefix
         String rawPrefix = config.getString("prefix");

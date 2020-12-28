@@ -1,0 +1,127 @@
+# -================================-
+#    Customisable Player Messages
+# -================================-
+# All messages use the '&' symbol for the minecraft default colouring/formatting
+#
+# This document supports hex colour coding. If you want to include a hex colour, insert before the text you want coloured
+# e.g. noPermission: "#6e140dYou do not have permission to use that command"
+#
+# If you want a message to not have the prefix, tag it at the start of the message '[NO_PREFIX]'
+# Make sure the tag is the VERY start, no format codes or anything
+# e.g. noPermission: "[NO_PREFIX]&cYou do not have permission to use that command"
+#
+# Messages for each world
+# If you want a world to have specific messages, have the world name as the first option, and then follow the format for 'DEFAULT'
+# If no list is provided for a world, then messages are retrieved from 'DEFAULT'
+# Example
+# Spawn:
+#   ENTITY:
+#     PLAYER:
+#       - "Your message here"
+#     CREEPER:
+#       - "%player% got blown up"
+# etc etc
+#
+# Placeholders - note that not all Placeholders are applicable to all messages
+# %player% - the player that died
+# %killer% - the entity/player that killed the player
+# %item% - hoverable item to view what item killed the player
+# %item_name% - name of the item that killed the player
+# %fall_height% - height of the fall (in blocks). Only applicable for death type of 'FALL'
+
+# Prefix for all messages - List Messages stored as lists do NOT have the prefix added however
+prefix: "&r&7[&6FDM&7]&f"
+
+DEFAULT:
+  # Messages when the player dies to these mobs - note that if the list is complete you can easily add the missing mobs (including across updates)
+  ENTITY:
+    PLAYER:
+    CREEPER:
+    SKELETON:
+    SPIDER:
+    ZOMBIE:
+    SLIME:
+    GHAST:
+    ZOMBIFIED_PIGLIN:
+    ENDERMAN:
+    CAVE_SPIDER:
+    SILVERFISH:
+    BLAZE:
+    MAGMA_CUBE:
+    ENDER_DRAGON:
+    WITHER:
+    WITCH:
+    ENDERMITE:
+    GUARDIAN:
+    SHULKER:
+    WOLF:
+    IRON_GOLEM:
+    POLAR_BEAR:
+    LLAMA:
+    PHANTOM:
+    PUFFERFISH:
+    DROWNED:
+    PILLAGER:
+    RAVAGER:
+    TRADER_LLAMA:
+    BEE:
+    HOGLIN:
+    PIGLIN:
+    ZOGLIN:
+    PIGLIN_BRUTE:
+    UNKNOWN:
+  # Damage caused by being in the area when a block explodes.
+  BLOCK_EXPLOSION:
+  # Damage caused when an entity contacts a block such as a Cactus.
+  CONTACT:
+  # Custom damage. Also the default if no death cause can be found
+  CUSTOM:
+  # Damage caused by a dragon breathing fire.
+  DRAGON_BREATH:
+  # Damage caused by running out of air while in water
+  DROWNING:
+  # Damage caused when an entity falls a distance greater than 3 blocks
+  FALL:
+  # Damage caused by being hit by a falling block which deals damage
+  FALLING_BLOCK:
+  # Damage caused by direct exposure to fire
+  FIRE:
+  # Damage caused due to burns caused by fire / lava
+  FIRE_TICK:
+  # Damage caused when an entity runs into a wall.
+  FLY_INTO_WALL:
+  # Damage caused when an entity steps on a Magma Block
+  HOT_FLOOR:
+  # Damage caused by direct exposure to lava
+  LAVA:
+  # Damage caused by being struck by lightning
+  LIGHTNING:
+  # Damage caused by being hit by a damage potion or spell
+  MAGIC:
+  # Damage caused due to an ongoing poison effect
+  POISON:
+  # Damage caused when attacked by a projectile - note that entity projectiles (e.g. skeleton) are done through the 'ENTITY' list
+  PROJECTILE:
+  # Damage caused by starving due to having an empty hunger bar
+  STARVATION:
+  # Damage caused by being put in a block
+  SUFFOCATION:
+  # Damage caused by committing suicide using the command "/kill"
+  SUICIDE:
+  # Damage caused in retaliation to another attack by the Thorns enchantment.
+  THORNS:
+  # Damage caused by falling into the void
+  VOID:
+  # Damage caused by Wither potion effect - see WITHER and WITHER_SKELETON above for being withered by the mobs
+  WITHER:
+
+# Error Messages, only applicable to the commands and GUI - has no relevance to chat death messages
+errorMessages:
+  noPermission: "&cYou do not have permission to use that command!"
+  mustBePlayer: "&cYou must be a player to use that command!"
+
+guiMessages:
+  # Sent when the user requests a new message for a death cause/entity. use %cause% for the cause/entity they are using
+  newMessagePrompt: "&bPlease enter the message you want in chat when you die to &6%cause%"
+  # Sent when the user types 'CANCEL' (caps ignored) as a message
+  messageCancelled: "&cYou have cancelled setting a death message!"
