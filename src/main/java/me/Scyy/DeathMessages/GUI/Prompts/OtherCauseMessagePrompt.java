@@ -20,7 +20,7 @@ public class OtherCauseMessagePrompt extends MessagePrompt {
 
     @Override
     public String getPrompt() {
-        return plugin.getConfigManager().getPlayerMessenger().getMsg("guiMessages.newMessagePrompt", "%cause%", cause.name());
+        return plugin.getConfigManager().getPlayerMessenger().getRawMsg("guiMessages.newMessagePrompt", "%cause%", cause.name());
     }
 
     @Override
@@ -29,7 +29,7 @@ public class OtherCauseMessagePrompt extends MessagePrompt {
         if (s == null) return this;
 
         if (s.equalsIgnoreCase("cancel")) {
-            conversationContext.getForWhom().sendRawMessage(pm.getMsg("guiMessages.messageCancelled", "%cause%", cause.name()));
+            conversationContext.getForWhom().sendRawMessage(pm.getRawMsg("guiMessages.messageCancelled", "%cause%", cause.name()));
         }
 
         if (!(conversationContext.getForWhom() instanceof Player)) {
@@ -40,11 +40,12 @@ public class OtherCauseMessagePrompt extends MessagePrompt {
 
         Player player = (Player) conversationContext.getForWhom();
 
-        boolean success = plugin.getConfigManager().getDeathMessageManager().addMessage(player.getUniqueId(), tl, "OTHER." + cause.name());
+        boolean success = plugin.getConfigManager().getDeathMessageManager().addMessage(player.getUniqueId(), tl, cause.name());
 
         if (!success) {
             conversationContext.getForWhom().sendRawMessage("Could not save your message! Please report this bug!");
         }
+        conversationContext.getForWhom().sendRawMessage(pm.getRawMsg("guiMessages.messageSaved", "%message%", tl));
         return null;
     }
 }

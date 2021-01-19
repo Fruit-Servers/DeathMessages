@@ -1,3 +1,8 @@
+# Any world in this list will be registered as having custom messages for that world
+# e.g. a 'Spawn' world with custom messages in messages.yml will need to be registered here
+# Leave blank for all messages to use DEFAULT for death messages
+worlds:
+
 # List of entities players can set custom messages for
 # Each entity requires a name, lore and a material - this is for how it appears in the GUI
 # The entity type is appended to the end of the lore list - this cannot be modified

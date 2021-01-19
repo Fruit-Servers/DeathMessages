@@ -22,7 +22,7 @@ public class ConfigManager {
         this.plugin = plugin;
         this.playerMessenger = new PlayerMessenger(plugin);
         this.settings = new Settings(plugin);
-        this.deathMessageManager = new CustomMessageManager(this, this.loadDeathMessages());
+        this.deathMessageManager = new CustomMessageManager(this);
     }
 
     /**
@@ -63,6 +63,8 @@ public class ConfigManager {
             playerFile.mkdirs();
             return new HashMap<>();
         }
+
+        // TODO - hot load player data when they join
 
         Map<UUID, CustomDeathMessageFile> messageFileMap = new HashMap<>();
 

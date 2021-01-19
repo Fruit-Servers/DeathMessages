@@ -10,7 +10,7 @@ public class CustomDeathMessageFile extends ConfigFile {
     private final UUID uuid;
 
     public CustomDeathMessageFile(Plugin plugin, UUID uuid) {
-        super(plugin, "players." + uuid.toString(), false);
+        super(plugin, "players/" + uuid.toString() + ".yml", false);
         this.uuid = uuid;
     }
 
@@ -21,5 +21,9 @@ public class CustomDeathMessageFile extends ConfigFile {
     public void addMessage(String message, String path) throws IOException {
         this.config.set(path, message);
         this.config.save(configFile);
+    }
+
+    public String getMessage(String path) {
+        return this.config.getString(path);
     }
 }

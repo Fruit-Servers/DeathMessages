@@ -20,7 +20,7 @@ public class EntityMessagePrompt extends MessagePrompt {
 
     @Override
     public String getPrompt() {
-        return plugin.getConfigManager().getPlayerMessenger().getMsg("guiMessages.newMessagePrompt", "%cause%", type.name());
+        return plugin.getConfigManager().getPlayerMessenger().getRawMsg("guiMessages.newMessagePrompt", "%cause%", type.name());
     }
 
     @Override
@@ -29,7 +29,7 @@ public class EntityMessagePrompt extends MessagePrompt {
         if (s == null) return this;
 
         if (s.equalsIgnoreCase("cancel")) {
-            conversationContext.getForWhom().sendRawMessage(pm.getMsg("guiMessages.messageCancelled", "%cause%", type.name()));
+            conversationContext.getForWhom().sendRawMessage(pm.getRawMsg("guiMessages.messageCancelled", "%cause%", type.name()));
         }
 
         if (!(conversationContext.getForWhom() instanceof Player)) {
@@ -47,7 +47,7 @@ public class EntityMessagePrompt extends MessagePrompt {
         if (!success) {
             conversationContext.getForWhom().sendRawMessage("Could not save your message! Please report this bug!");
         }
-        conversationContext.getForWhom().sendRawMessage(pm.getMsg("guiMessages.messageSaved", "%message%", tl));
+        conversationContext.getForWhom().sendRawMessage(pm.getRawMsg("guiMessages.messageSaved", "%message%", tl));
         return null;
     }
 }

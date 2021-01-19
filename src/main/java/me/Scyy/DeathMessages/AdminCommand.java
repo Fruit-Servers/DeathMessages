@@ -36,7 +36,14 @@ public class AdminCommand implements TabExecutor {
             if (!(sender instanceof Player)) {
                 pm.msg(sender, "errorMessages.mustBePlayer"); return true;
             }
+
             Player player = (Player) sender;
+
+            // Initialise the players Message file if it's their first time running the command
+            if (!plugin.getConfigManager().getDeathMessageManager().messageFileExists(player.getUniqueId())) {
+                plugin.getConfigManager().getDeathMessageManager().loadMessageFile(player.getUniqueId());
+            }
+
             InventoryGUI gui = new HomeGUI(null, plugin, player, player.getUniqueId());
             player.openInventory(gui.getInventory());
             return true;

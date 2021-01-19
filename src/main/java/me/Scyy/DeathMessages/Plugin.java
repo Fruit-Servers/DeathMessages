@@ -30,7 +30,7 @@ public class Plugin extends JavaPlugin {
         this.worldGuardManager = new WorldGuardManager(this);
 
         // Register the Listeners
-        Bukkit.getPluginManager().registerEvents(new PlayerOofEvent(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerEvent(this), this);
         Bukkit.getPluginManager().registerEvents(new GUIListener(this), this);
 
         // Register the command

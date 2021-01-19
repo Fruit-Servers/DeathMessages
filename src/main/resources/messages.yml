@@ -17,9 +17,9 @@
 # Spawn:
 #   ENTITY:
 #     PLAYER:
-#       - "Your message here"
+#       - "&#C70039☠ &f- Your message here"
 #     CREEPER:
-#       - "%player% got blown up"
+#       - "&#C70039☠ &f- %player% got blown up"
 # etc etc
 #
 # Placeholders - note that not all Placeholders are applicable to all messages
@@ -28,43 +28,137 @@
 # %item% - hoverable item to view what item killed the player
 # %item_name% - name of the item that killed the player
 # %fall_height% - height of the fall (in blocks). Only applicable for death type of 'FALL'
+# %block% - block that killed the player
 
 # Prefix for all messages - List Messages stored as lists do NOT have the prefix added however
 prefix: "&r&7[&6FDM&7]&f"
 
 DEFAULT:
-  # Messages when the player dies to these mobs - note that if the list is complete you can easily add the missing mobs (including across updates)
+  # Messages when the player dies to these mobs - contact any developer in regards the updated list for 'EntityTypes' if needed
   ENTITY:
+    # Default messages are ones sent when there is no message provided for an entity category
+    DEFAULT:
+      - "&#C70039☠ &f- &7Ooft. Seems like the %killer% had enough of &#33879E&o%player%..."
+      - "&#C70039☠ &f- &7Yikes! %killer% really had it out for %player%."
+      - "&#C70039☠ &f- &7Maybe &#33879E&o%player% should have been nicer to %killer%..."
     PLAYER:
+      - "&#C70039☠ &f- &7Unfortunately for &#33879E&o%player%&7, mercy isn't a part of &#33879E&o%killer%'s vocabulary."
+      - "&#C70039☠ &f- &#33879E&o%player% &7was stream sniped by &#33879E&o%killer%"
+      - "&#C70039☠ &f- &#33879E&o%player% &7should have been more kind to &#33879E&o%killer%"
+      - "&#C70039☠ &f- &#33879E&o%player% &7couldn't handle &#33879E&o%killer%’s ultimate wrath"
+      - "&#C70039☠ &f- &#33879E&o%player% &7has been successfully demolished by &#33879E&o%killer%"
+      - "&#C70039☠ &f- &#33879E&o%player% &7got rekt by &#33879E&o%killer%."
+      - "&#C70039☠ &f- &#33879E&o%player% &7lost in a game of intense rock paper scissors against &#33879E&o%killer%"
     CREEPER:
+      - "&#C70039☠ &f- &#33879E&o%player% &7tried to be friends with a creeper then got onto its bad side."
+      - "&#C70039☠ &f- &7Thanks to a creeper, &#33879E&o%player% &7has a new hole to clean up."
+      - "&#C70039☠ &f- &7ssssst... is the last thing &#33879E&o%player% &7heard"
     SKELETON:
+      - "&#C70039☠ &f- &#33879E&o%player% &7got YEETED to heaven by a skeleton!"
+      - "&#C70039☠ &f- &7A skeleton had a bone to pick with &#33879E&o%player%"
+      - "&#C70039☠ &f- &7“Get no-scoped, kid!” - Skeleton to &#33879E&o%player%, &72021"
+      - "&#C70039☠ &f- &#33879E&o%player% &7got sniped by a skeleton"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was 360 no scoped by a bone boi"
     SPIDER:
+      - "&#C70039☠ &f- &#33879E&o%player% &7got bitten and became Spiderman!"
+      - "&#C70039☠ &f- &#33879E&o%player%, &7you know it's only one bite to turn into Spiderman? Right..?"
+      - "&#C70039☠ &f- &#33879E&o%player% &7could not handle Australia’s spiders"
+      - "&#C70039☠ &f- &7Someone didn't like creepy crawlies hey &#33879E&o%player%?"
+      - "&#C70039☠ &f- &#33879E&o%player% &7gained a fear of spiders"
+      - "&#C70039☠ &f- &#33879E&o%player% &7smacked a spider and couldn't find it"
+      - "&#C70039☠ &f- &#33879E&o%player% &7realised the spider was not so 'itsy-bitsy'."
     ZOMBIE:
+      - "&#C70039☠ &f- &#33879E&o%player% &7couldn't protect their brain from a Zombie :("
+      - "&#C70039☠ &f- &7A zombie slurped on &#33879E&o%player%’s &7brain"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was zombified"
+      - "&#C70039☠ &f- &#33879E&o%player% &7tried fighting a zombie, and failed"
+      - "&#C70039☠ &f- &7A zombie tried to get &#33879E&o%player%’s &7brain, and succeeded!"
+      - "&#C70039☠ &f- &#33879E&o%player% &7died from the horrible stench of a Zombie"
     SLIME:
+      - "&#C70039☠ &f- &#33879E&o%player% &7was squished to death by a Slime!"
+      - "&#C70039☠ &f- &#33879E&o%player% &7got blobbed on?"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was clapped by a slimy one"
+      - "&#C70039☠ &f- &7Maybe only play with the baby slimes, &#33879E&o%player%"
+      - "&#C70039☠ &f- &#33879E&o%player% &7couldn't handle a sticky situation"
+      - "&#C70039☠ &f- &7A slime slinked on up to &#33879E&o%player%"
+      - "&#C70039☠ &f- &#33879E&o%player% &7got squashed by a sticky cube"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was crushed by slimy boi"
+      - "&#C70039☠ &f- &#33879E&o%player% &7got themselves into a sticky situation."
     GHAST:
     ZOMBIFIED_PIGLIN:
     ENDERMAN:
+      - "&#C70039☠ &f- &#33879E&o%player% &7was slain by the ender pearl wielder"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was teleported into another realm by an enderman"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was banished to the shadow realm by an enderman"
+      - "&#C70039☠ &f- &#33879E&o%player% &7found out that staring is rude, especially towards an enderman"
     CAVE_SPIDER:
+      - "&#C70039☠ &f- &#33879E&o%player% &7got bitten and became Spiderman!"
+      - "&#C70039☠ &f- &#33879E&o%player%, &7you know it's only one bite to turn into Spiderman? Right..?"
+      - "&#C70039☠ &f- &#33879E&o%player% &7could not handle Australia’s spiders"
+      - "&#C70039☠ &f- &7Someone didn't like creepy crawlies hey &#33879E&o%player%?"
+      - "&#C70039☠ &f- &#33879E&o%player% &7gained a fear of spiders"
+      - "&#C70039☠ &f- &#33879E&o%player% &7smacked a spider and couldn't find it"
+      - "&#C70039☠ &f- &#33879E&o%player% &7realised the spider was not so 'itsy-bitsy'."
     SILVERFISH:
     BLAZE:
+      - "&#C70039☠ &f- &#33879E&o%player% &7tried to befriend a blaze!"
+      - "&#C70039☠ &f- &#33879E&o%player% &7got wiped out by a blaze! That's like SO hot!"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was sizzled to a crisp by a Blaze!"
+      - "&#C70039☠ &f- &7Feel the spicy flames &#33879E&o%player%"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was turned into a toastie"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was well cooked by a Blaze!"
     MAGMA_CUBE:
+      - "&#C70039☠ &f- &#33879E&o%player% &7got squished on by a hot cube"
+      - "&#C70039☠ &f- &#33879E&o%player% &7couldn't handle how hot Mr.Cube was"
+      - "&#C70039☠ &f- &#33879E&o%player% &7got squashed by a flaming cube"
+      - "&#C70039☠ &f- &#33879E&o%player% &7went down in a cube of glory"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was squished by a spicy slime."
     ENDER_DRAGON:
+    WITHER_SKELETON:
+      - "&#C70039☠ &f- &7“I’m 3 blocks tall, pal”  - 2021, Wither Skeleton to &#33879E&o%player%"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was slain by a wither descendant"
+      - "&#C70039☠ &f- &#33879E&o%player% &7had a spooky scary skeleton coming for their heart"
     WITHER:
+      - "&#C70039☠ &f- &7Big buff wither beat the hell outta &#33879E&o%player% &7before &#33879E&o%player% &7could!"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was withered away"
+      - "&#C70039☠ &f- &#33879E&o%player% &7withered away whilst having an ultimate battle"
+      - "&#C70039☠ &f- &#33879E&o%player% &7has to figure out *wither* or not it was worth it"
+      - "&#C70039☠ &f- &#33879E&o%player% &7added another head to the Wither's collection."
     WITCH:
+      - "&#C70039☠ &f- &#33879E&o%player% &7mistook a witch as a villager."
+      - "&#C70039☠ &f- &7“Avada kedavra!” said Hermione to &#33879E&o%player%"
     ENDERMITE:
     GUARDIAN:
     SHULKER:
     WOLF:
     IRON_GOLEM:
+      - "&#C70039☠ &f- &7“i am golem” - 2021, Iron Golem to &#33879E&o%player%"
+      - "&#C70039☠ &f- &7From friend to foe.. &#33879E&o%player% &7really must have annoyed that Iron Golem!"
+      - "&#C70039☠ &f- &#33879E&o%player% &7punched iron man and was met with a fist of steel!"
+      - "&#C70039☠ &f- &7Iron Golems are a villagers friend, but clearly not yours, &#33879E&o%player%"
+      - "&#C70039☠ &f- &#33879E&o%player% &7got yeeted by an Iron Golem."
     POLAR_BEAR:
     LLAMA:
     PHANTOM:
+      - "&#C70039☠ &f- &#33879E&o%player% &7could not get away from the magpies"
+      - "&#C70039☠ &f- &7Perhaps a rest every once in a while would cure &#33879E&o%player%'s &7Phantom problems?"
+      - "&#C70039☠ &f- &7The night bats hunted down &#33879E&o%player%"
+      - "&#C70039☠ &f- &7It’s a bird! it’s a plane! no.. It’s a phantom who killed &#33879E&o%player%"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was swooped by a magpie"
+      - "&#C70039☠ &f- &#33879E&o%player% &7forgot to sleep and was pecked to death by a Phantom"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was swooped by a nightmare bird!"
     PUFFERFISH:
     DROWNED:
     PILLAGER:
     RAVAGER:
     TRADER_LLAMA:
     BEE:
+      - "&#C70039☠ &f- &7Poor &#33879E&o%player% &7stung by a bee rip to them... and the bee!!"
+      - "&#C70039☠ &f- &7Never touch a bee's flowers again &#33879E&o%player%!"
+      - "&#C70039☠ &f- &#33879E&o%player% &7Didn't enjoy jazz as much as Barry Bee Benson"
+      - "&#C70039☠ &f- &#33879E&o%player% &7said 'NOOO NOT THE BEES!!'"
+      - "&#C70039☠ &f- &#33879E&o%player% &7is buzzy dying"
+      - "&#C70039☠ &f- &#33879E&o%player% &7did not Bee-have."
     HOGLIN:
     PIGLIN:
     ZOGLIN:
@@ -72,50 +166,128 @@ DEFAULT:
     UNKNOWN:
   # Damage caused by being in the area when a block explodes.
   BLOCK_EXPLOSION:
-  # Damage caused when an entity contacts a block such as a Cactus.
+    - "&#C70039☠ &f- &7BOOM!! BOOM!! went &#33879E&o%player%"
+    - "&#C70039☠ &f- &#33879E&o%player% &7could not handle gunpowder"
+    - "&#C70039☠ &f- &#33879E&o%player% &7had their mind blown"
+    - "&#C70039☠ &f- &#33879E&o%player% &7went KaBOOM."
+    - "&#C70039☠ &f- &#33879E&o%player% &7used self-destruct."
+  # Damage caused when an entity contacts a block. Use Cactus for cactus and SWEET_BERRY for sweet berries
   CONTACT:
-  # Custom damage. Also the default if no death cause can be found
+    CACTUS:
+      - "&#C70039☠ &f- &#33879E&o%player% &7was just lonely and needed some hugs from a cactus ;n;"
+      - "&#C70039☠ &f- &#33879E&o%player% &7found about about thorns on cactus"
+      - "&#C70039☠ &f- &#33879E&o%player% &7Tried befriending a cactus O_O"
+      - "&#C70039☠ &f- &7The cactus farm has fought back against &#33879E&o%player%"
+      - "&#C70039☠ &f- &#33879E&o%player% &7tried to make a cactus soft."
+      - "&#C70039☠ &f- &#33879E&o%player% &7didn't socially distance from a cactus."
+      - "&#C70039☠ &f- &#33879E&o%player% &7ugged the cactus for a bit too long..."
+      - "&#C70039☠ &f- &#33879E&o%player% &7not only lost their life, but roughly 70% of their items to a single cactus."
+    SWEET_BERRY:
+      - "&#C70039☠ &f- &#33879E&o%player% &7fell into a berry bush"
+      - "&#C70039☠ &f- &7Those sweet berries weren’t so sweet after all, were they &#33879E&o%player%?"
+      - "&#C70039☠ &f- &#33879E&o%player% &7was obsessed with berries and died because of it"
+      - "&#C70039☠ &f- &#33879E&o%player%&7… It was a sweet death."
+  # Custom damage. Is also the Default when no message can be found e.g. leaving a section blank.
+  # For default entity messages see ENTITY.DEFAULT
   CUSTOM:
   # Damage caused by a dragon breathing fire.
   DRAGON_BREATH:
   # Damage caused by running out of air while in water
   DROWNING:
+    - "&#C70039☠ &f- &#33879E&o%player% &7forgot scuba gear"
+    - "&#C70039☠ &f- &7Splash!! &#33879E&o%player% &7forgot he wasn't a fish!"
+    - "&#C70039☠ &f- *&#33879E&o%player% &7glugs in water*"
+    - "&#C70039☠ &f- &#33879E&o%player% &7swam too deep"
+    - "&#C70039☠ &f- &#33879E&o%player% &7went away to swim with the fishies"
+    - "&#C70039☠ &f- &#33879E&o%player% &7doesn't know how to swim"
+    - "&#C70039☠ &f- &#33879E&o%player% &7tried to be a fish!"
+    - "&#C70039☠ &f- &#33879E&o%player% &7died training to be with the axolotls"
+    - "&#C70039☠ &f- &#33879E&o%player% &7used SPLASH! It was not very effective."
   # Damage caused when an entity falls a distance greater than 3 blocks
   FALL:
-  # Damage caused by being hit by a falling block which deals damage
+    - "&#C70039☠ &f- &#33879E&o%player% &7tried to fight gravity, maybe that wasn't the best idea :I"
+    - "&#C70039☠ &f- &7Ooof your ankles, &#33879E&o%player%"
+    - "&#C70039☠ &f- &#33879E&o%player% &7thought fall damage didn't exist"
+    - "&#C70039☠ &f- &7Watch your step &#33879E&o%player%&7! Oh no...Too late..."
+    - "&#C70039☠ &f- &#33879E&o%player% &7couldn't matrix jump so well."
+    - "&#C70039☠ &f- &#33879E&o%player% &7should learn to MLG bucket for next time"
+    - "&#C70039☠ &f- &#33879E&o%player% &7was doing some aerobics until they snapped their legs."
+    - "&#C70039☠ &f- &#33879E&o%player% &7missed their water bucket."
+    - "&#C70039☠ &f- &7Woops! &#33879E&o%player% &7didn't mean to fall that high.."
+    - "&#C70039☠ &f- &7Gravity betrayed &#33879E&o%player%"
+    - "&#C70039☠ &f- &#33879E&o%player%’s &7Acrobatics level wasn't high enough to save them…"
+    - "&#C70039☠ &f- &7Oh no! &#33879E&o%player% &7fell %fall_height% blocks to their death!"
+  # Damage caused by being hit by a falling block which deals damage (anvils)
   FALLING_BLOCK:
   # Damage caused by direct exposure to fire
   FIRE:
+    - "&#C70039☠ &f- &#33879E&o%player% &7couldn’t get water out in time"
+    - "&#C70039☠ &f- &7Medium rare &#33879E&o%player%&7?! More like well done!!"
+    - "&#C70039☠ &f- &#33879E&o%player% &7was a victim of the classic aussie summer"
+    - "&#C70039☠ &f- &#33879E&o%player% &7didn’t have any fire resistance!"
+    - "&#C70039☠ &f- &#33879E&o%player% &7was being a pyromaniac"
+    - "&#C70039☠ &f- &#33879E&o%player% &7was too smoking hot for this world."
   # Damage caused due to burns caused by fire / lava
   FIRE_TICK:
+    - "&#C70039☠ &f- &#33879E&o%player% &7couldn’t get water out in time"
+    - "&#C70039☠ &f- &7Medium rare &#33879E&o%player%&7?! More like well done!!"
+    - "&#C70039☠ &f- &#33879E&o%player% &7was a victim of the classic aussie summer"
+    - "&#C70039☠ &f- &#33879E&o%player% &7didn’t have any fire resistance!"
+    - "&#C70039☠ &f- &#33879E&o%player% &7was being a pyromaniac"
+    - "&#C70039☠ &f- &#33879E&o%player% &7was too smoking hot for this world."
   # Damage caused when an entity runs into a wall.
   FLY_INTO_WALL:
   # Damage caused when an entity steps on a Magma Block
   HOT_FLOOR:
   # Damage caused by direct exposure to lava
   LAVA:
+    - "&#C70039☠ &f- &#33879E&o%player% &7couldn’t get water out in time"
+    - "&#C70039☠ &f- &#33879E&o%player% &7just wanted to enjoy a nice time in the hottub!"
+    - "&#C70039☠ &f- &#33879E&o%player% &7was sizzled by melted rock"
+    - "&#C70039☠ &f- &7Here's a tip &#33879E&o%player%&7, Fire Protection potions protect you from lava!"
+    - "&#C70039☠ &f- &7Lava, 'tis a tad hot, &#33879E&o%player%"
+    - "&#C70039☠ &f- &#33879E&o%player% &7slipped on a banana peel and wooshed into lava"
+    - "&#C70039☠ &f- &#33879E&o%player% &7set the temperature of their hot-tub too high."
   # Damage caused by being struck by lightning
   LIGHTNING:
+    - "&#C70039☠ &f- &#33879E&o%player%’s &7death was electrifying"
+    - "&#C70039☠ &f- &#33879E&o%player% &7has gotten on Zeus’s bad side. Zap!"
+    - "&#C70039☠ &f- &7Pikachu zapped &#33879E&o%player% name a bit too rough"
+    - "&#C70039☠ &f- &7Was &#33879E&o%player%’s &7death really that… shocking?"
   # Damage caused by being hit by a damage potion or spell
   MAGIC:
   # Damage caused due to an ongoing poison effect
   POISON:
-  # Damage caused when attacked by a projectile - note that entity projectiles (e.g. skeleton) are done through the 'ENTITY' list
-  PROJECTILE:
   # Damage caused by starving due to having an empty hunger bar
   STARVATION:
   # Damage caused by being put in a block
   SUFFOCATION:
+    - "&#C70039☠ &f- &#33879E&o%player% &7tried to breathe inside blocks"
+    - "&#C70039☠ &f- &#33879E&o%player% &7could not breathe in blocks"
+    - "&#C70039☠ &f- &#33879E&o%player% &7hugged the walls too tight"
+    - "&#C70039☠ &f- &#33879E&o%player% &7got too much %block% in their lungs"
+    - "&#C70039☠ &f- &#33879E&o%player% &7breathed in too much %block%"
   # Damage caused by committing suicide using the command "/kill"
   SUICIDE:
-  # Damage caused in retaliation to another attack by the Thorns enchantment.
-  THORNS:
   # Damage caused by falling into the void
   VOID:
-  # Damage caused by Wither potion effect - see WITHER and WITHER_SKELETON above for being withered by the mobs
+    - "&#C70039☠ &f- &#33879E&o%player% &7has forfeit their life to the void."
+    - "&#C70039☠ &f- &#33879E&o%player% &7kinda died from void"
+    - "&#C70039☠ &f- &7How's life in Y -40 &#33879E&o%player%?"
+    - "&#C70039☠ &f- &7To boldly go where no &#33879E&o%player% &7has gone before - &#33879E&o%player% &7fell into the void"
+    - "&#C70039☠ &f- &#33879E&o%player% &7needs to remember that /spawn is a command they can use to save themselves from the void!"
+    - "&#C70039☠ &f- &7Welp, &#33879E&o%player% &7got lost in the void, hope they didn't have anything too important.."
+    - "&#C70039☠ &f- &7There's a void whenever &#33879E&o%player% dies"
+    - "&#C70039☠ &f- &#33879E&o%player% &7slipped and fell off their island..."
+  # Damage caused by Wither potion effect or Wither flower - see WITHER and WITHER_SKELETON above for being withered by the mobs
   WITHER:
+    - "&#C70039☠ &f- &7O.o &#33879E&o%player% &7felt a bit nauseous!"
+    - "&#C70039☠ &f- &7You're not meant to eat the wither rose &#33879E&o%player%&7!"
+    - "&#C70039☠ &f- &#33879E&o%player% &7forgot their milk"
 
+#
 # Error Messages, only applicable to the commands and GUI - has no relevance to chat death messages
+#
 errorMessages:
   noPermission: "&cYou do not have permission to use that command!"
   mustBePlayer: "&cYou must be a player to use that command!"
@@ -125,3 +297,5 @@ guiMessages:
   newMessagePrompt: "&bPlease enter the message you want in chat when you die to &6%cause%"
   # Sent when the user types 'CANCEL' (caps ignored) as a message
   messageCancelled: "&cYou have cancelled setting a death message!"
+  # Sent when the user successfully saves a death message. use %message% for the message they saved, and %cause% for cause
+  messageSaved: "&bWhen you are killed by %cause% your message will be: %message%"

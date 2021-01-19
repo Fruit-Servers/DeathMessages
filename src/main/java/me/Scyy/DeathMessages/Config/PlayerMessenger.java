@@ -2,7 +2,10 @@ package me.Scyy.DeathMessages.Config;
 
 import me.Scyy.DeathMessages.Plugin;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.*;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -12,15 +15,15 @@ import java.util.regex.Pattern;
 
 public class PlayerMessenger extends ConfigFile {
 
-    /**
-     * Regex pattern for finding hex codes for a given String
-     */
-    public static final Pattern hex = Pattern.compile("#[a-fA-F0-9]{6}");
+    public static final Pattern hex = Pattern.compile("&#[a-zA-Z0-9]{6}");
+
+    private static final char hoverChar = 'φ';
+    private static final char clickChar = 'Φ';
 
     /**
      * Prefix for messages, can be ignored if set to "" in messages.yml
      */
-    private final String prefix;
+    private String prefix;
 
     /**
      * Constructs a player messenger with the plugin and declares the prefix for messages
@@ -31,9 +34,109 @@ public class PlayerMessenger extends ConfigFile {
 
         // Get the prefix
         String rawPrefix = config.getString("prefix");
-        if (rawPrefix != null) this.prefix = ChatColor.translateAlternateColorCodes('&', rawPrefix);
+        if (rawPrefix != null) this.prefix = format(prefix);
         else this.prefix = "[COULD_NOT_LOAD_PREFIX]";
 
+    }
+
+    @Override
+    public void reloadConfig() {
+        super.reloadConfig();
+        // Get the prefix
+        String rawPrefix = config.getString("prefix");
+        if (rawPrefix != null) this.prefix = format(prefix);
+        else this.prefix = "[COULD_NOT_LOAD_PREFIX]";
+    }
+
+    public static BaseComponent[] toComponent(String message) {
+        return toComponent(message, null, null);
+    }
+
+    public static BaseComponent[] toComponent(String message, BaseComponent hoverable, BaseComponent clickable) {
+
+        ComponentBuilder b = new ComponentBuilder();
+
+        boolean validHover = hoverable != null;
+        boolean validClick = clickable != null;
+
+        for (int i = 0; i < message.length(); i++) {
+            char letter = message.charAt(i);
+            if (letter == '&') {
+                switch (message.charAt(i+ 1)) {
+                    case '#':
+                        char[] rawHex = new char[7];
+                        int rawHexCounter = 0;
+                        for (int j = i + 1; j < 8; j++) {
+                            rawHex[rawHexCounter] = message.charAt(j);
+                        }
+                        String hex = new String(rawHex);
+                        b.color(ChatColor.of(hex));
+                        i += 7;
+                    // Lowercase phi represents the hover event
+                    case hoverChar:
+                        if (validHover) b.append(hoverable);
+                        break;
+                    case clickChar:
+                        if (validClick) b.append(clickable);
+                        break;
+                    default:
+                        String colour = new String(new char[]{message.charAt(i), message.charAt(i + 1)});
+                        b.color(ChatColor.of(colour));
+                        i += 1;
+                }
+            } else {
+                b.append(Character.toString(letter));
+            }
+        }
+
+        return b.create();
+
+    }
+
+    public static String markForHoverEvent(String text, String textToMark) {
+        return text.replace(textToMark, String.valueOf(hoverChar));
+    }
+
+    public static String markForClickEvent(String text, String textToMark) {
+        return text.replace(textToMark, String.valueOf(clickChar));
+    }
+
+    public static String format(String message) {
+
+        // Replace hex colour codes
+        Matcher hexMatcher = hex.matcher(message);
+        while (hexMatcher.find()) {
+            String rawMatch = message.substring(hexMatcher.start(), hexMatcher.end());
+            String hexCode = message.substring(hexMatcher.start() + 1, hexMatcher.end());
+            message = message.replace(rawMatch, ChatColor.of(hexCode).toString());
+        }
+
+        // Translate normal colour codes and return the message
+        return ChatColor.translateAlternateColorCodes('&', message);
+    }
+
+    public static String replace(String message, String... replacements) {
+        if (replacements != null && replacements[0] != null) {
+
+            if (replacements.length % 2 != 0) throw new IllegalArgumentException("Not all placeholders have a corresponding replacement");
+
+            for (int i = 0; i < replacements.length; i += 2) {
+                String placeholder = replacements[i];
+                String replacement = replacements[i + 1];
+                message = message.replaceAll(placeholder, replacement);
+            }
+
+        }
+        return message;
+
+    }
+
+    public void msg(CommandSender sender, BaseComponent[] message) {
+        sender.spigot().sendMessage(message);
+    }
+
+    public void msg(Player player, ChatMessageType type, BaseComponent[] message) {
+        player.spigot().sendMessage(type, null, message);
     }
 
     /**
@@ -53,16 +156,16 @@ public class PlayerMessenger extends ConfigFile {
      *                     "%player%", player.getName(), "%entity%", entity.getName() etc...
      */
     public void msg(CommandSender sender, String path, String... replacements) {
-        String finalMessage = this.getMsg(path, replacements);
-        if (finalMessage.equals("")) return;
-        sender.sendMessage(finalMessage);
+        BaseComponent[] message = this.getMsg(path, replacements);
+        if (message.length == 0) return;
+        this.msg(sender, message);
     }
 
     /**
      * For getting a message from messages.yml
      * @param path the path of the message in messages.yml
      */
-    public String getMsg(String path) {
+    public BaseComponent[] getMsg(String path) {
         return this.getMsg(path, (String) null);
     }
 
@@ -72,12 +175,35 @@ public class PlayerMessenger extends ConfigFile {
      * @param replacements an array of replacements with the placeholder and their replacements in pairs e.g.
      *                     "%player%", player.getName(), "%entity%", entity.getName() etc...
      */
-    public String getMsg(String path, String... replacements) {
+    public BaseComponent[] getMsg(String path, String... replacements) {
+
+        String rawMessage = config.getString(path);
+        if (rawMessage == null) return messageNotFound(path);
+
+        if (rawMessage.equals("")) return new BaseComponent[0];
+
+        String messagePrefix = "";
+        if (!rawMessage.startsWith("[NO_PREFIX]")) {
+            messagePrefix = prefix + " ";
+        } else {
+            rawMessage = rawMessage.substring(11);
+        }
+
+        rawMessage = replace(rawMessage, replacements);
+
+        return toComponent(messagePrefix + rawMessage);
+
+    }
+
+    public String getRawMsg(String path) {
+        return this.getRawMsg(path, (String) null);
+    }
+
+    public String getRawMsg(String path, String... replacements) {
 
         String rawMessage = config.getString(path);
 
         if (rawMessage == null) return "Could not find message at " + path;
-
 
         if (rawMessage.equalsIgnoreCase("")) return "";
 
@@ -89,31 +215,10 @@ public class PlayerMessenger extends ConfigFile {
             rawMessage = rawMessage.substring(11);
         }
 
-        // Manage Message Replacements
-        if (replacements != null && replacements[0] != null) {
+        rawMessage = format(rawMessage);
+        rawMessage = replace(rawMessage, replacements);
 
-            if (replacements.length % 2 != 0) throw new IllegalArgumentException("Not all placeholders have a corresponding replacement");
-
-            for (int i = 0; i < replacements.length; i += 2) {
-
-                String placeholder = replacements[i];
-                String replacement = replacements[i + 1];
-
-                rawMessage = rawMessage.replaceAll(placeholder, replacement);
-
-            }
-
-        }
-
-        // Replace hex colour codes
-        Matcher hexMatcher = hex.matcher(rawMessage);
-        while (hexMatcher.find()) {
-            String hexCode = rawMessage.substring(hexMatcher.start(), hexMatcher.end());
-            rawMessage = rawMessage.replace(hexCode, ChatColor.of(hexCode).toString());
-        }
-
-        // Translate normal colour codes and return the message
-        return messagePrefix + ChatColor.translateAlternateColorCodes('&', rawMessage);
+        return messagePrefix + rawMessage;
 
     }
 
@@ -134,8 +239,8 @@ public class PlayerMessenger extends ConfigFile {
      *                     "%player%", player.getName(), "%entity%", entity.getName() etc...
      */
     public void msgList(CommandSender sender, String path, String... replacements) {
-        for (String message : this.getListMsg(path, replacements)) {
-            sender.sendMessage(message);
+        for (BaseComponent[] message : this.getListMsg(path, replacements)) {
+            this.msg(sender, message);
         }
     }
 
@@ -143,7 +248,7 @@ public class PlayerMessenger extends ConfigFile {
      * For getting multiple messages stored as a list in messages.yml. Ignores the prefix
      * @param path the path of the message list in messages.yml
      */
-    public List<String> getListMsg(String path) {
+    public List<BaseComponent[]> getListMsg(String path) {
         return this.getListMsg(path, (String) null);
     }
 
@@ -153,7 +258,30 @@ public class PlayerMessenger extends ConfigFile {
      * @param replacements an array of replacements with the placeholder and their replacements in pairs e.g.
      *                     "%player%", player.getName(), "%entity%", entity.getName() etc...
      */
-    public List<String> getListMsg(String path, String... replacements) {
+    public List<BaseComponent[]> getListMsg(String path, String... replacements) {
+
+        List<String> rawList = config.getStringList(path);
+        List<BaseComponent[]> list = new LinkedList<>();
+
+        if (rawList.size() == 0) return Collections.singletonList(messageNotFound(path));
+
+        for (String item : rawList) {
+
+            item = replace(item, replacements);
+
+            list.add(toComponent(item));
+
+        }
+
+        return list;
+
+    }
+
+    public List<String> getRawListMsg(String path) {
+        return this.getRawListMsg(path, (String) null);
+    }
+
+    public List<String> getRawListMsg(String path, String... replacements) {
 
         List<String> rawList = config.getStringList(path);
         List<String> list = new LinkedList<>();
@@ -162,34 +290,20 @@ public class PlayerMessenger extends ConfigFile {
 
         for (String item : rawList) {
 
-            // Manage Message Replacements
-            if (replacements != null && replacements[0] != null) {
-
-                if (replacements.length % 2 != 0) throw new IllegalArgumentException("Not all placeholders have a corresponding replacement");
-
-                for (int i = 0; i < replacements.length; i += 2) {
-
-                    String placeholder = replacements[i];
-                    String replacement = replacements[i + 1];
-
-                    item = item.replaceAll(placeholder, replacement);
-
-                }
-
-            }
-
-            Matcher hexMatcher = hex.matcher(item);
-            while (hexMatcher.find()) {
-                String hexCode = item.substring(hexMatcher.start(), hexMatcher.end());
-                item = item.replace(hexCode, ChatColor.of(hexCode).toString());
-            }
-
+            item = format(item);
+            item = replace(item, replacements);
             list.add(item);
 
         }
 
         return list;
 
+    }
+
+    public static BaseComponent[] messageNotFound(String messagePath) {
+        return new BaseComponent[] {
+                new TextComponent("Could not find message at " + messagePath)
+        };
     }
 
 }

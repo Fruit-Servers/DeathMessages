@@ -93,4 +93,8 @@ public class Settings extends ConfigFile {
 
         return list;
     }
+
+    public List<String> getWorlds() {
+        return config.getStringList("worlds");
+    }
 }

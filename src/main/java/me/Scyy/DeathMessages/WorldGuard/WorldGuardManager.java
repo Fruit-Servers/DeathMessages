@@ -1,5 +1,6 @@
 package me.Scyy.DeathMessages.WorldGuard;
 
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.extent.Extent;
 import com.sk89q.worldedit.util.Location;
 import com.sk89q.worldguard.WorldGuard;
@@ -26,13 +27,16 @@ public class WorldGuardManager {
     }
 
     public boolean isRestrictBroadcast(Player player) {
-        Location loc = new Location((Extent) player.getLocation().getWorld(),
+        if (!enabled) return false;
+        Location loc = new Location(BukkitAdapter.adapt(player.getLocation().getWorld()),
                 player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ());
         ApplicableRegionSet regions = WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery().getApplicableRegions(loc);
         return regions.testState(null, RESTRICT_BROADCAST);
     }
 
-    public void sendRestrictedBroadcast(Player player, BaseComponent message) {
+    public void sendRestrictedBroadcast(Player player, BaseComponent[] message) {
+
+        if (!enabled) return;
 
         // Get a list of all regions the player is currently in
         Location loc = new Location((Extent) player.getLocation().getWorld(),
@@ -50,7 +54,7 @@ public class WorldGuardManager {
 
                     // If the player is in the region
                     if (region.contains(onlinePlayer.getLocation().getBlockX(), onlinePlayer.getLocation().getBlockY(), onlinePlayer.getLocation().getBlockZ())) {
-                        onlinePlayer.sendMessage(message);
+                        onlinePlayer.spigot().sendMessage(message);
                     }
 
                 }

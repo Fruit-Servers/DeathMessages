@@ -1,6 +1,6 @@
 package me.Scyy.DeathMessages.Util;
 
-import me.Scyy.DeathMessages.PlayerOofEvent;
+import me.Scyy.DeathMessages.Config.PlayerMessenger;
 import me.Scyy.DeathMessages.Plugin;
 import me.Scyy.DeathMessages.WorldGuard.WorldGuardManager;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -58,35 +58,44 @@ public class MessageUtils {
 
     }
 
-    public static BaseComponent composeMessage(@NotNull String rawMessage, @Nullable BaseComponent itemReplacement) {
-
-        if (itemReplacement == null) itemReplacement = new TextComponent(PlayerOofEvent.ITEM_PLACEHOLDER_NA);
-
-        String[] splitMessage = rawMessage.split(PlayerOofEvent.ITEM_PLACEHOLDER);
-        BaseComponent message = new TextComponent();
-
-        for (int i = 0; i < splitMessage.length; i++) {
-            String split = splitMessage[i];
-            message.addExtra(split);
-            if (i < splitMessage.length - 1) message.addExtra(itemReplacement);
-        }
-
-        return message;
-
-    }
-
     public static void broadcast(@NotNull String message, @NotNull Plugin plugin, @NotNull Player player, @Nullable BaseComponent hoverable) {
 
-        BaseComponent finalMessage = MessageUtils.composeMessage(message, hoverable);
-
         WorldGuardManager manager = plugin.getWorldGuardManager();
+
+        BaseComponent[] finalMessage = PlayerMessenger.toComponent(message, hoverable, null);
 
         // Check if the player is in a regioned area
         if (manager.isWorldGuardEnabled() && manager.isRestrictBroadcast(player)) {
             plugin.getWorldGuardManager().sendRestrictedBroadcast(player, finalMessage);
         } else {
-            Bukkit.broadcast(finalMessage);
+            for (Player online : Bukkit.getOnlinePlayers()) {
+                online.spigot().sendMessage(finalMessage);
+            }
         }
+
+    }
+
+    public static String placeholders(String message, String... replacements) {
+
+        // Manage Message Replacements
+        if (replacements != null && replacements[0] != null) {
+
+            if (replacements.length % 2 != 0) throw new IllegalArgumentException("Not all placeholders have a corresponding replacement");
+
+            for (int i = 0; i < replacements.length; i += 2) {
+
+                String placeholder = replacements[i];
+                String replacement = replacements[i + 1];
+
+                message = message.replaceAll(placeholder, replacement);
+
+            }
+
+            return message;
+
+        }
+
+        return message;
 
     }
 
