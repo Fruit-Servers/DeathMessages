@@ -17,8 +17,7 @@ public class PlayerMessenger extends ConfigFile {
 
     public static final Pattern hex = Pattern.compile("&#[a-zA-Z0-9]{6}");
 
-    private static final char hoverChar = 'φ';
-    private static final char clickChar = 'Φ';
+    private static final char interactChar = 'φ';
 
     /**
      * Prefix for messages, can be ignored if set to "" in messages.yml
@@ -34,7 +33,7 @@ public class PlayerMessenger extends ConfigFile {
 
         // Get the prefix
         String rawPrefix = config.getString("prefix");
-        if (rawPrefix != null) this.prefix = format(prefix);
+        if (rawPrefix != null) this.prefix = rawPrefix;
         else this.prefix = "[COULD_NOT_LOAD_PREFIX]";
 
     }
@@ -44,61 +43,95 @@ public class PlayerMessenger extends ConfigFile {
         super.reloadConfig();
         // Get the prefix
         String rawPrefix = config.getString("prefix");
-        if (rawPrefix != null) this.prefix = format(prefix);
+        if (rawPrefix != null) this.prefix = rawPrefix;
         else this.prefix = "[COULD_NOT_LOAD_PREFIX]";
     }
 
     public static BaseComponent[] toComponent(String message) {
-        return toComponent(message, null, null);
+        return toComponent(message, null);
     }
 
-    public static BaseComponent[] toComponent(String message, BaseComponent hoverable, BaseComponent clickable) {
+    public static BaseComponent[] toComponent(String message, BaseComponent interactable) {
 
-        ComponentBuilder b = new ComponentBuilder();
+        ComponentBuilder builder = new ComponentBuilder();
 
-        boolean validHover = hoverable != null;
-        boolean validClick = clickable != null;
+        boolean validInteractable = interactable != null;
 
+        StringBuilder sb = new StringBuilder();
+        TextComponent component = new TextComponent();
         for (int i = 0; i < message.length(); i++) {
+
             char letter = message.charAt(i);
-            if (letter == '&') {
-                switch (message.charAt(i+ 1)) {
+
+            if ( letter != '&') {
+                sb.append(letter);
+            } else {
+                // Add text and formatting
+                if (!sb.toString().equalsIgnoreCase("")) {
+                    component.setText(sb.toString());
+                    builder.append(component);
+                    sb = new StringBuilder();
+                    component = new TextComponent();
+                }
+
+                switch (message.charAt(i + 1)) {
                     case '#':
-                        char[] rawHex = new char[7];
-                        int rawHexCounter = 0;
-                        for (int j = i + 1; j < 8; j++) {
-                            rawHex[rawHexCounter] = message.charAt(j);
-                        }
-                        String hex = new String(rawHex);
-                        b.color(ChatColor.of(hex));
+                        String hex = message.substring(i + 1, i + 8);
+                        component.setColor(ChatColor.of(hex));
                         i += 7;
-                    // Lowercase phi represents the hover event
-                    case hoverChar:
-                        if (validHover) b.append(hoverable);
                         break;
-                    case clickChar:
-                        if (validClick) b.append(clickable);
+                    case interactChar:
+                        if (validInteractable) {
+                            component.setText(sb.toString());
+                            builder.append(component);
+                            sb = new StringBuilder();
+                            builder.append(interactable);
+                        }
+                        i += 1;
                         break;
                     default:
-                        String colour = new String(new char[]{message.charAt(i), message.charAt(i + 1)});
-                        b.color(ChatColor.of(colour));
+                        char colourCode = message.charAt(i + 1);
+                        switch (colourCode) {
+                            case 'k':
+                                component.setObfuscated(true);
+                                break;
+                            case 'l':
+                                component.setBold(true);
+                                break;
+                            case 'm':
+                                component.setStrikethrough(true);
+                                break;
+                            case 'n':
+                                component.setUnderlined(true);
+                                break;
+                            case 'o':
+                                component.setItalic(true);
+                                break;
+                            case 'r':
+                                component.setObfuscated(false);
+                                component.setBold(false);
+                                component.setStrikethrough(false);
+                                component.setUnderlined(false);
+                                component.setItalic(false);
+                            default:
+                                component.setColor(ChatColor.getByChar(colourCode));
+                                break;
+                        }
                         i += 1;
                 }
-            } else {
-                b.append(Character.toString(letter));
             }
+
         }
 
-        return b.create();
+        component.setText(sb.toString());
+        builder.append(component);
+
+        return builder.create();
 
     }
 
-    public static String markForHoverEvent(String text, String textToMark) {
-        return text.replace(textToMark, String.valueOf(hoverChar));
-    }
-
-    public static String markForClickEvent(String text, String textToMark) {
-        return text.replace(textToMark, String.valueOf(clickChar));
+    public static String markForInteractEvent(String text, String textToMark) {
+        return text.replace(textToMark, '&' + String.valueOf(interactChar));
     }
 
     public static String format(String message) {
@@ -184,7 +217,7 @@ public class PlayerMessenger extends ConfigFile {
 
         String messagePrefix = "";
         if (!rawMessage.startsWith("[NO_PREFIX]")) {
-            messagePrefix = prefix + " ";
+            messagePrefix = prefix;
         } else {
             rawMessage = rawMessage.substring(11);
         }
@@ -215,7 +248,6 @@ public class PlayerMessenger extends ConfigFile {
             rawMessage = rawMessage.substring(11);
         }
 
-        rawMessage = format(rawMessage);
         rawMessage = replace(rawMessage, replacements);
 
         return messagePrefix + rawMessage;
@@ -290,7 +322,6 @@ public class PlayerMessenger extends ConfigFile {
 
         for (String item : rawList) {
 
-            item = format(item);
             item = replace(item, replacements);
             list.add(item);
 
