@@ -1,3 +1,14 @@
+# If this plugin is toggled to be on (via /fdm toggle) death messages will no longer be logged to console
+# This option simply enables that to happen again with the custom messages. Will not come into effect if toggled of
+logCustomDeathMessages: true
+
+# Message to put before a players custom death message
+# Any trailing formatting will influence the custom message
+customMessagePrefix: "&#C70039☠ &f- &7"
+
+# Message to wrap a players name in for custom messages
+playerNameFormat: "&3&o%player%&r&7"
+
 # Any world in this list will be registered as having custom messages for that world
 # e.g. a 'Spawn' world with custom messages in messages.yml will need to be registered here
 # Leave blank for all messages to use DEFAULT for death messages
@@ -5,7 +16,8 @@ worlds:
 
 # List of entities players can set custom messages for
 # Each entity requires a name, lore and a material - this is for how it appears in the GUI
-# The entity type is appended to the end of the lore list - this cannot be modified
+# The entity type is added to the start of the list - this cannot be changed
+# use %preview% to include a preview of the players message
 # Example list
 # ENTITY:
 #   CREEPER:
@@ -21,24 +33,50 @@ worlds:
 #       - "&8Click to customise your message!"
 #     itemType: "BONE"
 ENTITY:
+  PLAYER:
+    name: "&6Player"
+    lore:
+      - "&8For when you die to another player"
+      - "&8Click to customise your message!"
+      - "&8Current message: &r&f%preview%"
+    itemType: "PLAYER_HEAD"
   CREEPER:
     name: "&6Creeper"
     lore:
       - "&8Click to customise your message!"
+      - "&8Current message: &r&f%preview%"
     itemType: "GUNPOWDER"
   SKELETON:
     name: "&6Skeleton"
     lore:
       - "&8Click to customise your message!"
+      - "&8Current message: &r&f%preview%"
     itemType: "BONE"
-
+  ZOMBIE:
+    name: "&6Zombie"
+    lore:
+      - "&8Click to customise your message!"
+      - "&8Current message: &r&f%preview%"
+    itemType: "ROTTEN_FLESH"
+  SPIDER:
+    name: "&6Spider"
+    lore:
+      - "&8Click to customise your message!"
+      - "&8Current message: &r&f%preview%"
+    itemType: "STRING"
+  CAVE_SPIDER:
+    name: "&6Cave Spider"
+    lore:
+      - "&8Click to customise your message!"
+      - "&8Current message: &r&f%preview%"
+    itemType: "COBWEB"
 
 # List of other death types players can set custom messages for
 # Each death type requires a name, lore and a material - this is for how it appears in the GUI
-# The entity type is appended to the end of the lore list - this cannot be modified
+# The death cause is added to the start of the list - this cannot be changed
 # For the list of valid death causes, scroll to the bottom of this file
 # Example list
-# ENTITY:
+# OTHER:
 #   VOID:
 #     name: "&6Void"
 #     lore:
@@ -52,77 +90,9 @@ ENTITY:
 #       - "&8Click to customise your message!"
 #     itemType: "TNT"
 OTHER:
-  VOID:
-    name: "&6Void"
+  FALL:
+    name: "&6Falling"
     lore:
       - "&8Click to customise your message!"
-    itemType: "BEDROCK"
-  BLOCK_EXPLOSION:
-    name: "&6TNT"
-    lore:
-      - "&8Click to customise your message!"
-    itemType: "TNT"
-
-
-# A List of all possible Entities for a death message (As of 1.16.4)
-# for an updated list, see https://minecraft.gamepedia.com/Mob#List_of_mobs
-# PLAYER
-# CREEPER
-# SKELETON
-# SPIDER
-# ZOMBIE
-# SLIME
-# GHAST
-# ZOMBIFIED_PIGLIN
-# ENDERMAN
-# CAVE_SPIDER
-# SILVERFISH
-# BLAZE
-# MAGMA_CUBE
-# ENDER_DRAGON
-# WITHER
-# WITCH
-# ENDERMITE
-# GUARDIAN
-# SHULKER
-# WOLF
-# IRON_GOLEM
-# POLAR_BEAR
-# LLAMA
-# PHANTOM
-# PUFFERFISH
-# DROWNED
-# PILLAGER
-# RAVAGER
-# TRADER_LLAMA
-# BEE
-# HOGLIN
-# PIGLIN
-# ZOGLIN
-# PIGLIN_BRUTE
-# UNKNOWN
-
-# A List of all possible death causes for a death message (As of 1.16.4)
-# for an updated list, see https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
-# BLOCK_EXPLOSION
-# CONTACT
-# CUSTOM (The equivalent of 'UNKNOWN')
-# DRAGON_BREATH
-# DROWNING
-# FALL
-# FALLING_BLOCK
-# FIRE
-# FIRE_TICK
-# FLY_INTO_WALL
-# HOT_FLOOR
-# LAVA
-# LIGHTNING
-# MAGIC
-# POISON
-# PROJECTILE
-# STARVATION
-# SUFFOCATION
-# SUICIDE
-# THORNS
-# VOID
-# WITHER
+      - "&8Current message: &r&f%preview%"
+    itemType: "DIAMOND_BOOTS"
